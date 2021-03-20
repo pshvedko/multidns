@@ -1122,8 +1122,8 @@ func NewQuery(domain Domain, typo uint16, class uint16) Query {
 	}
 }
 
-// SendUDP
-func (m *Message) SendUDP(c net.Conn) (int, error) {
+// Write
+func (m *Message) Write(c net.Conn) (int, error) {
 	b, err := m.MarshalBinary()
 	if err != nil {
 		return 0, err
@@ -1131,8 +1131,8 @@ func (m *Message) SendUDP(c net.Conn) (int, error) {
 	return c.Write(b)
 }
 
-// ReadUDP
-func (m *Message) ReadUDP(c net.Conn) error {
+// Read
+func (m *Message) Read(c net.Conn) error {
 	b := make([]byte, 2048)
 	n, err := c.Read(b)
 	if err != nil {
@@ -1142,6 +1142,7 @@ func (m *Message) ReadUDP(c net.Conn) error {
 }
 
 var errors = map[uint8]error{
+	CodeNoError:        nil,
 	CodeFormatError:    fmt.Errorf("the name server was unable to interpret the query"),
 	CodeServerFailure:  fmt.Errorf("the name server was unable to process this query"),
 	CodeNameError:      fmt.Errorf("the domain name referenced in the query does not exist"),

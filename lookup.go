@@ -24,11 +24,11 @@ func LookupIPv4(host string, via net.IP) (ips []net.IP, err error) {
 	m.SetType(MessageQuery)
 	m.SetRecursionDesired(true)
 	m.AddQuery(NewQuery(NewDomain(host), TypeA, ClassIN))
-	_, err = m.SendUDP(c)
+	_, err = m.Write(c)
 	if err != nil {
 		return
 	}
-	err = a.ReadUDP(c)
+	err = a.Read(c)
 	if err != nil {
 		return
 	}
@@ -53,11 +53,11 @@ func LookupIPv6(host string, via net.IP) (ips []net.IP, err error) {
 	m.SetType(MessageQuery)
 	m.SetRecursionDesired(true)
 	m.AddQuery(NewQuery(NewDomain(host), TypeAAAA, ClassIN))
-	_, err = m.SendUDP(c)
+	_, err = m.Write(c)
 	if err != nil {
 		return
 	}
-	err = a.ReadUDP(c)
+	err = a.Read(c)
 	if err != nil {
 		return
 	}
@@ -82,11 +82,11 @@ func LookupIP(host string, via net.IP) (ips []net.IP, err error) {
 	m.SetType(MessageQuery)
 	m.SetRecursionDesired(true)
 	m.AddQuery(NewQuery(NewDomain(host), TypeA, ClassIN))
-	_, err = m.SendUDP(c)
+	_, err = m.Write(c)
 	if err != nil {
 		return
 	}
-	err = a.ReadUDP(c)
+	err = a.Read(c)
 	if err != nil {
 		return
 	}
@@ -97,11 +97,11 @@ func LookupIP(host string, via net.IP) (ips []net.IP, err error) {
 	m.Question[0] = NewQuery(NewDomain(host), TypeAAAA, ClassIN)
 	//}
 	m.ID++
-	_, err = m.SendUDP(c)
+	_, err = m.Write(c)
 	if err != nil {
 		return
 	}
-	err = a.ReadUDP(c)
+	err = a.Read(c)
 	if err != nil {
 		return
 	}
