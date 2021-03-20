@@ -1038,6 +1038,18 @@ func (m *Message) ReadFrom(r io.Reader) (n int64, err error) {
 		return
 	}
 	n += i
+	m.Authority = make([]Reply, m.AuthorityCount)
+	i, err = m.Authority.ReadFrom(r)
+	if err != nil {
+		return
+	}
+	n += i
+	m.Additional = make([]Reply, m.AdditionalCount)
+	i, err = m.Additional.ReadFrom(r)
+	if err != nil {
+		return
+	}
+	n += i
 	return
 }
 
