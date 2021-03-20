@@ -1166,12 +1166,12 @@ func (m *Message) Error() error {
 	return errors[m.ResponseCode]
 }
 
-func (m *Message) Section() []Section {
+func (m *Message) Sections() []Section {
 	return []Section{m.Answer, m.Authority, m.Additional}
 }
 
 func (m *Message) A() (ip []net.IP) {
-	for _, s := range m.Section() {
+	for _, s := range m.Sections() {
 		for _, rr := range s {
 			switch v := rr.(type) {
 			case *ResourceRecordA:
@@ -1185,7 +1185,7 @@ func (m *Message) A() (ip []net.IP) {
 }
 
 func (m *Message) CNAME() (name []string) {
-	for _, s := range m.Section() {
+	for _, s := range m.Sections() {
 		for _, rr := range s {
 			switch v := rr.(type) {
 			case *ResourceRecordCNAME:
