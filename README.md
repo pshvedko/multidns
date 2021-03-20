@@ -1,0 +1,2 @@
+# multidns
+multi server resolver
